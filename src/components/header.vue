@@ -2,11 +2,7 @@
     <header class="stencil">
         <div class="top">
             <img src="@/assets/title.png"/>
-            <div class="gis" @click="goToGis" v-if="type == 1">进入GIS</div>
-            <div class="back" @click="goBack" v-if="type == 2">
-                <img style="width: 15px;height: 15px;margin-right: 10px" src="@/assets/project/backcon.png" alt="">
-                <div>返回</div>
-            </div>
+            <div class="gis" @click="goToGis">进入GIS</div>
         </div>
         <img class="right_img" src="@/assets/right.png" alt="">
     </header>
@@ -63,21 +59,7 @@ export default {
 .gis {
     cursor: pointer;
 }
-.back{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 160px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    background-image: url("../assets/project/back.png");
-    background-size: 160px 40px;
-}
-.back:hover{
-    background-image: url("../assets/project/back2.png");
-}
+
 
 .right_img {
     position: fixed;
