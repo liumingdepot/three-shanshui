@@ -7,16 +7,17 @@
                 <v-nav @changeIndex="changeIndex"/>
                 <div class="box">
                     <v-area v-if="navIndex == 0" @changeItem="changeItem" ref="svg"/>
-                    <v-valley v-if="navIndex == 1"/>
+                    <v-valley v-if="navIndex == 1" @changeImg="changeImg"/>
                     <v-project v-if="navIndex == 2"/>
                 </div>
             </div>
             <div class="right">
-                <three :index="index" @changeSvg="changeSvg" ref="tree" class="slide-in-right"/>
+                <three v-if="navIndex == 0" :index="index" @changeSvg="changeSvg" ref="tree" class="slide-in-right"/>
+                <three2 v-else class="slide-in-right" ref="tree2"/>
             </div>
         </main>
         <video class="fullscreenvideo" id="bgvid" playsinline autoplay muted loop>
-            <source :src="`${publicPath}bg/bg.mp4`" type="video/mp4">
+            <source :src="publicPath + 'bg/bg.mp4'" type="video/mp4">
         </video>
     </div>
 </template>
@@ -29,6 +30,7 @@ import vArea from "@/components/area";
 import vValley from "@/components/valley";
 import vProject from "@/components/project";
 import three from '@/components/three'
+import three2 from "@/components/three2";
 
 export default {
     components: {
@@ -38,7 +40,8 @@ export default {
         vArea,
         vValley,
         vProject,
-        three
+        three,
+        three2
     },
     data() {
         return {
@@ -53,6 +56,9 @@ export default {
         },
         changeItem(index) {
             this.index = index
+        },
+        changeImg(index){
+            this.$refs.tree2.show = index
         },
         changeSvg(index) {
             this.$refs.svg.changeItem({}, index)
@@ -76,6 +82,7 @@ export default {
 
 .left {
     width: 600px;
+    margin-top: 90px;
 }
 
 </style>

@@ -13,6 +13,10 @@
     font-family: 'a';
     src: url('./assets/font/a.ttf');
 }
+@font-face {
+    font-family: 'b';
+    src: url('./assets/font/b.TTF');
+}
 .slide-in-right {
     animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }

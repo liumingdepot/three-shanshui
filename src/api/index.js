@@ -46,3 +46,9 @@ export const getXmInfoByProId = proId => {
     })
 }
 
+export const getProjectAndOutcomeInfo = (proId) => {
+    return service({
+        url: url + 'getProjectAndOutcomeInfo?proId=' + proId
+    })
+}
+

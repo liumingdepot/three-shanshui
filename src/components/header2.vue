@@ -1,21 +1,55 @@
 <template>
-    <header class="stencil">
-        <div class="top">
-            <img src="@/assets/title.png"/>
-            <div class="gis" @click="goToGis">进入GIS</div>
+    <header class="top">
+        <div class="name">{{name}}</div>
+        <div class="right">
+            <div class="box">
+                <img src="@/assets/project/sun.png" style="margin-right: 10px">
+                <div style="font-size: 16px;text-align: left">
+                    <div style="margin-bottom: 6px">晴</div>
+                    <div>东北风3级</div>
+                </div>
+                <img src="@/assets/project/wd.png" style="margin: 0 10px">
+                <div style="font-size: 16px;text-align: left">30℃</div>
+            </div>
+            <div class="box">
+                <div style="margin-right: 10px">{{ time }}</div>
+                <div style="font-size: 16px;">
+                    <div style="margin-bottom: 8px">{{ date }}</div>
+                    <div>星期{{ week }}</div>
+                </div>
+            </div>
+            <div class="btn" @click="goBack">
+                <img style="margin-right: 10px;" src="@/assets/project/back.png" alt="">返回
+            </div>
         </div>
-        <img class="right_img" src="@/assets/right.png" alt="">
     </header>
 </template>
 
 <script>
 export default {
-    props:['type'],
+    props:['name'],
+    data() {
+        return {
+            date: '',
+            time: '',
+            week: ''
+        }
+    },
+    created() {
+        this.initDate()
+        setTimeout(() => {
+            this.initDate()
+        }, 1000)
+    },
     methods: {
-        goToGis() {
-
+        initDate() {
+            const week = {'1': '一', '2': '二', '3': '三', '4': '四', '5': '五', '6': '六', '7': '日'}
+            const date = new Date()
+            this.time = date.getHours() + ':' + date.getMinutes()
+            this.date = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+            this.week = week[date.getDay()]
         },
-        goBack(){
+        goBack() {
             this.$router.go(-1)
         }
     },
@@ -23,49 +57,68 @@ export default {
 </script>
 
 <style scoped>
-.stencil {
+.top {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
     z-index: 999;
-}
-
-.top {
-    width: 100%;
-    height: 80px;
-    box-sizing: border-box;
-    padding: 0 20px;
+    width: 100vw;
+    height: 110px;
+    background-image: url("../assets/project/top.png");
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.title {
-    color: #ffffff;
-    font-size: 24px;
-    font-family: "a";
-    background-image: -webkit-linear-gradient(
-            bottom,
-            #17b6ba,
-            #79f3f7,
-            #cff5ff,
-            #b0fffc
-    );
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.box {
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    justify-content: center;
 }
 
-.gis {
+.box:after {
+    display: block;
+    content: '';
+    margin-left: 40px;
+    width: 2px;
+    height: 40px;
+    background-color: #badfff;
+    opacity: 0.3;
+}
+
+.right {
+    color: #fff;
+    width: 660px;
+    height: 110px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 258px 258px auto;
+    text-align: center;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    opacity: 0.60;
 }
 
-
-.right_img {
-    position: fixed;
-    right: 10px;
-    top: 10vh;
-    width: 35px;
-    height: 85vh;
+.btn:hover {
+    opacity: 1;
+}
+.name{
+    height: 34px;
+    font-family: 'b';
+    font-size: 36px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 2px;
+    color: #ffffff;
+    padding-left: 50px;
+    background: linear-gradient(to bottom, #fff, rgba(173,210,255));
+    -webkit-background-clip: text;
+    color: transparent;
 }
 </style>

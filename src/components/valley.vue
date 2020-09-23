@@ -1,9 +1,7 @@
 <template>
     <div class="valley">
-        <div class="item" @click="changeItem(obj,1)">
+        <div class="item">
             <div class="top">
-                <img style="margin-right: 20px" src="@/assets/icon/b1.png" v-if="count == 1">
-                <img style="margin-right: 20px" src="@/assets/icon/b2.png" v-else>
                 <div class="title">{{ obj.lyname }}</div>
                 <div style="margin-left: 40px"><span>直辖水库数量  29 </span><span>总库容  4089 万立方</span></div>
             </div>
@@ -12,9 +10,9 @@
                 <div class="echarts2"></div>
             </div>
         </div>
-        <div class="item" @click="changeItem(obj1,2)">
+        <div class="item" @click="changeItem(2)">
             <div class="top">
-                <img style="margin-right: 20px" src="@/assets/icon/b1.png" v-if="count == 2">
+                <img style="margin-right: 20px" src="@/assets/icon/b1.png" v-if="count.includes(2)">
                 <img style="margin-right: 20px" src="@/assets/icon/b2.png" v-else>
                 <div class="title">{{ obj1.lyname }}</div>
             </div>
@@ -31,9 +29,9 @@
                 </div>
             </div>
         </div>
-        <div class="item" @click="changeItem(obj2,3)">
+        <div class="item" @click="changeItem(3)">
             <div class="top">
-                <img style="margin-right: 20px" src="@/assets/icon/b1.png" v-if="count == 3">
+                <img style="margin-right: 20px" src="@/assets/icon/b1.png" v-if="count.includes(3)">
                 <img style="margin-right: 20px" src="@/assets/icon/b2.png" v-else>
                 <div class="title">{{ obj2.lyname }}</div>
             </div>
@@ -81,7 +79,7 @@ export default {
             },
             obj1: {},
             obj2: {},
-            count: -1,
+            count: [2,3],
             imgs
         }
     },
@@ -98,12 +96,13 @@ export default {
             this.obj1 = data[0]
             this.obj2 = data[1]
         },
-        changeItem(obj, index) {
-            if (index == this.count) {
-                this.count = -1
-                return
+        changeItem(index) {
+            if (this.count.includes(index)) {
+                this.count.splice(this.count.indexOf(index),1)
+            }else{
+                this.count.push(index)
             }
-            this.count = index
+            this.$emit('changeImg',this.count)
         },
         initEcharts1() {
             const colorList = ['#fef175', '#6b51fe']
@@ -257,16 +256,16 @@ export default {
 
 .echarts {
     display: flex;
-    height: calc(100vh - 760px);
+    height: calc(100vh - 800px);
 }
 
 .echarts1 {
     width: 50%;
-    height: calc(100vh - 760px);
+    height: calc(100vh - 800px);
 }
 
 .echarts2 {
     width: 50%;
-    height: calc(100vh - 760px);
+    height: calc(100vh - 800px);
 }
 </style>

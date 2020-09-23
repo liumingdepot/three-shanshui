@@ -72,6 +72,7 @@
             </svg>
             <div class="title title6" v-if="index == 6">沮河上游黄土丘陵沟壑区</div>
         </div>
+
         <!--项目-->
         <div class="project" v-for="(item,i2) in projectList" :key="i2" :class="'project'+i2"
              @mouseover="changeProject(i2)" @mouseleave="changeProject(-1)" @click="changeItem(item,index)"

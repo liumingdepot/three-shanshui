@@ -13,7 +13,8 @@ export default {
             scene: null,
             camera: null,
             renderer: null,
-            group: null
+            group: null,
+            group2: null
         }
     },
     mounted() {
@@ -24,13 +25,14 @@ export default {
         createScene() {
             this.scene = new THREE.Scene()
             this.group = new THREE.Group()
+            this.group2 = new THREE.Group()
             //环境光
             this.scene.add(new THREE.AmbientLight(0xffffff));
             //辅助线
-            this.scene.add(new THREE.AxesHelper(10000));
+            this.scene.add(new THREE.AxesHelper(300));
 
             new OBJLoader().load(process.env.BASE_URL + 'model/scene.obj', (obj) => {
-                new THREE.TextureLoader().load(process.env.BASE_URL + 'model/scene.png', (texture) => {
+                new THREE.TextureLoader().load(process.env.BASE_URL + 'model/scene.jpg', (texture) => {
                     var material = new THREE.MeshLambertMaterial({
                         map: texture,
                     }); //材质对象Material
@@ -42,7 +44,7 @@ export default {
                     const geometry = new THREE.SphereBufferGeometry(800, 600, 40);
                     geometry.scale(-1, 1, 1);
 
-                    new THREE.TextureLoader().load(process.env.BASE_URL + 'model/bg.jpg',map=>{
+                    new THREE.TextureLoader().load(process.env.BASE_URL + 'model/bg.jpg', map => {
                         var material1 = new THREE.MeshBasicMaterial({
                             map
                         });
@@ -54,19 +56,52 @@ export default {
             })
         },
         createPlane() {
-            new THREE.TextureLoader().load(process.env.BASE_URL + 'model/1111.png', (texture) => {
-                texture.needsUpdate = true; //注意这句不能少
-                let material = new THREE.SpriteMaterial({
-                    map: texture
-                });
-                let mesh = new THREE.Sprite(material);
-                // console.log(mesh);
-                mesh.position.set(0, -25, 70)
-                mesh.scale.set(30, 50, 1);
-                mesh.name = 'a1'
-                this.group.add(mesh)
+            const promiseArr = []
+            const arr = ['b1', 'b2', 'b3', 'b11', 'b22', 'b33']
+            for (let i = 0; i < 6; i++) {
+                promiseArr.push(new Promise(resolve => {
+                    new THREE.TextureLoader().load(process.env.BASE_URL + 'model/' + arr[i] + '.png', res => {
+                        resolve(res)
+                    })
+                }))
+            }
+            Promise.all(promiseArr).then(([texture1, texture2, texture3, texture4, texture5, texture6]) => {
+                let mesh1 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh2 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture2}));
+                let mesh3 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture3}));
+                let mesh4 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh5 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture5}));
+                let mesh6 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture6}));
+                mesh1.position.set(100, -25, 70)
+                mesh2.position.set(0, -25, 70)
+                mesh3.position.set(-50, -25, 0)
+                mesh4.position.set(100, -25, 70)
+                mesh5.position.set(0, -25, 70)
+                mesh6.position.set(-50, -25, 0)
+                mesh1.scale.set(30, 50, 1);
+                mesh2.scale.set(30, 50, 1);
+                mesh3.scale.set(30, 50, 1);
+                mesh4.scale.set(30, 50, 1);
+                mesh5.scale.set(30, 50, 1);
+                mesh6.scale.set(30, 50, 1);
+                mesh1.name = 'a1'
+                mesh2.name = 'a2'
+                mesh3.name = 'a3'
+                mesh4.name = 'aa1'
+                mesh5.name = 'aa2'
+                mesh6.name = 'aa3'
+                mesh4.visible = false
+                mesh5.visible = false
+                mesh6.visible = false
+                this.group.add(mesh1)
+                this.group.add(mesh2)
+                this.group.add(mesh3)
+                this.group2.add(mesh4)
+                this.group2.add(mesh5)
+                this.group2.add(mesh6)
+            }).then(() => {
                 this.createCamera()
-            });
+            })
         },
         //创建相机对象
         createCamera() {
@@ -76,7 +111,7 @@ export default {
             //创建相机对象
             this.camera = new THREE.PerspectiveCamera(45, k, 0.1, 10000);
             this.camera.position.set(170, 208, 342); //设置相机位置
-            // this.camera.lookAt(this.scene.position);
+            this.camera.lookAt(this.scene.position);
             this.createRenderer()
         },
         createRenderer() {
@@ -92,6 +127,7 @@ export default {
             this.$refs.three.appendChild(this.renderer.domElement); //body元素中插入canvas对象
 
             this.scene.add(this.group);
+            this.scene.add(this.group2);
             this.createcControls()
 
             this.renderer.domElement.addEventListener('dblclick', event => {
@@ -102,9 +138,47 @@ export default {
                 mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
                 mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
                 raycaster.setFromCamera(mouse, this.camera);
+                const intersects = raycaster.intersectObjects(this.group2.children, true);
+                if (intersects.length > 0) {
+                    const name = intersects[0].object.name
+                    if (name == 'aa1') {
+                        this.$emit('changepPanoramic', {
+                            type:1,
+                            name
+                        })
+                    }
+                    if (name == 'aa2') {
+                        this.$emit('changepPanoramic', {
+                            type:2,
+                            name
+                        })
+                    }
+                }
+                this.render()
+            }, false);
+
+            this.renderer.domElement.addEventListener('mousemove', event => {
+                event.preventDefault();
+                const raycaster = new THREE.Raycaster();
+                const mouse = new THREE.Vector2();
+                //将html坐标系转化为webgl坐标系，并确定鼠标点击位置
+                mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
+                mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
+                raycaster.setFromCamera(mouse, this.camera);
                 const intersects = raycaster.intersectObjects(this.group.children, true);
                 if (intersects.length > 0) {
-                    this.$emit('changepPanoramic', true)
+                    const name = intersects[0].object.name
+                    for (let item of this.group2.children) {
+                        if (item.name == 'a' + name) {
+                            item.visible = true
+                        } else {
+                            item.visible = false
+                        }
+                    }
+                } else {
+                    for (let item of this.group2.children) {
+                        item.visible = false
+                    }
                 }
                 this.render()
             }, false);
