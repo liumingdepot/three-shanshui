@@ -1,5 +1,8 @@
 <template>
-    <div ref="three" style="position: fixed;top:0;left:0;width: 100vw;height: 100vh"></div>
+    <div>
+        <div ref="three" style="position: fixed;top:0;left:0;width: 100vw;height: 100vh"></div>
+        <div class="jq" v-if="show">景区{{index}}</div>
+    </div>
 </template>
 
 <script>
@@ -14,7 +17,9 @@ export default {
             camera: null,
             renderer: null,
             group: null,
-            group2: null
+            group2: null,
+            index:0,
+            show:false
         }
     },
     mounted() {
@@ -29,7 +34,7 @@ export default {
             //环境光
             this.scene.add(new THREE.AmbientLight(0xffffff));
             //辅助线
-            this.scene.add(new THREE.AxesHelper(300));
+            // this.scene.add(new THREE.AxesHelper(300));
 
             new OBJLoader().load(process.env.BASE_URL + 'model/scene.obj', (obj) => {
                 new THREE.TextureLoader().load(process.env.BASE_URL + 'model/scene.jpg', (texture) => {
@@ -66,39 +71,118 @@ export default {
                 }))
             }
             Promise.all(promiseArr).then(([texture1, texture2, texture3, texture4, texture5, texture6]) => {
-                let mesh1 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
-                let mesh2 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture2}));
-                let mesh3 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture3}));
-                let mesh4 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
-                let mesh5 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture5}));
-                let mesh6 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture6}));
-                mesh1.position.set(100, -25, 70)
-                mesh2.position.set(0, -25, 70)
-                mesh3.position.set(-50, -25, 0)
-                mesh4.position.set(100, -25, 70)
-                mesh5.position.set(0, -25, 70)
-                mesh6.position.set(-50, -25, 0)
-                mesh1.scale.set(30, 50, 1);
-                mesh2.scale.set(30, 50, 1);
-                mesh3.scale.set(30, 50, 1);
-                mesh4.scale.set(30, 50, 1);
-                mesh5.scale.set(30, 50, 1);
-                mesh6.scale.set(30, 50, 1);
-                mesh1.name = 'a1'
-                mesh2.name = 'a2'
-                mesh3.name = 'a3'
-                mesh4.name = 'aa1'
-                mesh5.name = 'aa2'
-                mesh6.name = 'aa3'
+                let mesh1 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture2}));
+                let mesh2 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture3}));
+                let mesh3 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture5}));
+                let mesh4 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture6}));
+                let mesh11 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh11s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh12 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh12s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh13 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh13s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh14 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh14s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh15 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh15s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh16 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh16s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh17 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh17s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh18 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh18s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                let mesh19 = new THREE.Sprite(new THREE.SpriteMaterial({map: texture1}));
+                let mesh19s = new THREE.Sprite(new THREE.SpriteMaterial({map: texture4}));
+                mesh11.position.set(-25, -38, 43)
+                mesh11.name = 'mesh1'
+                mesh11s.position.set(-25, -38, 43)
+                mesh11s.name = 'mesh1-1'
+                mesh11s.visible = false
+
+                mesh12.position.set(-10, -38, 65)
+                mesh12.name = 'mesh2'
+                mesh12s.position.set(-10, -38, 65)
+                mesh12s.name = 'mesh2-2'
+                mesh12s.visible = false
+
+                mesh13.position.set(-55, -38, 0)
+                mesh13.name = 'mesh3'
+                mesh13s.position.set(-55, -38, 0)
+                mesh13s.name = 'mesh3-3'
+                mesh13s.visible = false
+
+                mesh14.position.set(-20, -38, 30)
+                mesh14.name = 'mesh4'
+                mesh14s.position.set(-20, -38, 30)
+                mesh14s.name = 'mesh4-4'
+                mesh14s.visible = false
+
+                mesh15.position.set(0, -38, 70)
+                mesh15.name = 'mesh5'
+                mesh15s.position.set(0, -38, 70)
+                mesh15s.name = 'mesh5-5'
+                mesh15s.visible = false
+
+                mesh16.position.set(-35, -38, 20)
+                mesh16.name = 'mesh6'
+                mesh16s.position.set(-35, -38, 20)
+                mesh16s.name = 'mesh6-6'
+                mesh16s.visible = false
+
+                mesh17.position.set(-30, -38, 53)
+                mesh17.name = 'mesh7'
+                mesh17s.position.set(-30, -38, 53)
+                mesh17s.name = 'mesh7-7'
+                mesh17s.visible = false
+
+                mesh18.position.set(-80, -38, -30)
+                mesh18.name = 'mesh8'
+                mesh18s.position.set(-80, -38, -30)
+                mesh18s.name = 'mesh8-8'
+                mesh18s.visible = false
+
+                mesh19.position.set(-45, -38, 25)
+                mesh19.name = 'mesh9'
+                mesh19s.position.set(-45, -38, 25)
+                mesh19s.name = 'mesh9-9'
+                mesh19s.visible = false
+
+                mesh1.position.set(150, -30, 70)
+                mesh2.position.set(-150, -20, 0)
+                mesh3.position.set(150, -30, 70)
+                mesh4.position.set(-150, -20, 0)
+                mesh1.name = 'mesh100'
+                mesh2.name = 'mesh101'
+                mesh3.name = 'mesh100-100'
+                mesh4.name = 'mesh101-101'
+
+                mesh3.visible = false
                 mesh4.visible = false
-                mesh5.visible = false
-                mesh6.visible = false
                 this.group.add(mesh1)
                 this.group.add(mesh2)
-                this.group.add(mesh3)
+                this.group.add(mesh11)
+                this.group.add(mesh12)
+                this.group.add(mesh13)
+                this.group.add(mesh14)
+                this.group.add(mesh15)
+                this.group.add(mesh16)
+                this.group.add(mesh17)
+                this.group.add(mesh18)
+                this.group.add(mesh19)
+                this.group2.add(mesh3)
                 this.group2.add(mesh4)
-                this.group2.add(mesh5)
-                this.group2.add(mesh6)
+                this.group2.add(mesh11s)
+                this.group2.add(mesh12s)
+                this.group2.add(mesh13s)
+                this.group2.add(mesh14s)
+                this.group2.add(mesh15s)
+                this.group2.add(mesh16s)
+                this.group2.add(mesh17s)
+                this.group2.add(mesh18s)
+                this.group2.add(mesh19s)
+                for(let item of [...this.group.children,...this.group2.children]){
+                    item.scale.set(15, 25, 1);
+                }
             }).then(() => {
                 this.createCamera()
             })
@@ -140,14 +224,15 @@ export default {
                 raycaster.setFromCamera(mouse, this.camera);
                 const intersects = raycaster.intersectObjects(this.group2.children, true);
                 if (intersects.length > 0) {
+                    this.show = false
                     const name = intersects[0].object.name
-                    if (name == 'aa1') {
+                    if (name.split('-')[1] < 100) {
                         this.$emit('changepPanoramic', {
                             type:1,
                             name
                         })
                     }
-                    if (name == 'aa2') {
+                    if (name.split('-')[1] == 100) {
                         this.$emit('changepPanoramic', {
                             type:2,
                             name
@@ -169,16 +254,19 @@ export default {
                 if (intersects.length > 0) {
                     const name = intersects[0].object.name
                     for (let item of this.group2.children) {
-                        if (item.name == 'a' + name) {
+                        if (item.name == name + '-' + name.split('mesh')[1]) {
                             item.visible = true
                         } else {
                             item.visible = false
                         }
+                        this.show = true
+                        this.index = name.split('mesh')[1]
                     }
                 } else {
                     for (let item of this.group2.children) {
                         item.visible = false
                     }
+                    this.show = false
                 }
                 this.render()
             }, false);
@@ -215,5 +303,16 @@ export default {
 </script>
 
 <style scoped>
-
+.jq{
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    width: 6em;
+    line-height: 40px;
+    text-align: center;
+    z-index: 999999;
+    color: #fff;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,.7);
+}
 </style>

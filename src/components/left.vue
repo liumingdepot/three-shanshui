@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="title">项目概述</div>
-        <p v-text="data.PROJECT_BRIEF" class="p"></p>
+        <p v-text="data.PROJECT_BRIEF" class="p" :title="data.PROJECT_BRIEF"></p>
         <div class="summary_box">
             <img style="width: 100%" src="@/assets/project/w.png" alt="">
             <img style="width: 100%;height: 30px;margin-top: 30px" src="@/assets/project/yinlang.png" v-if="!yinlang">
@@ -73,6 +73,13 @@ export default {
     methods: {
         changeYinlang() {
             this.yinlang = !this.yinlang
+            const utterThis = new SpeechSynthesisUtterance()
+            utterThis.text = '欢迎进入' + this.data.PRO_NAME + '。'  + this.data.PROJECT_BRIEF;  //播放内容按
+            if(this.yinlang){
+                speechSynthesis.speak(utterThis)
+            }else{
+                speechSynthesis.cancel(utterThis)
+            }
         },
         changepPanoramic(){
             this.$emit('changepPanoramic', {
