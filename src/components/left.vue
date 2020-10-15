@@ -83,7 +83,7 @@ export default {
         },
         changepPanoramic(){
             this.$emit('changepPanoramic', {
-                type:2
+                type:3
             })
         }
     }

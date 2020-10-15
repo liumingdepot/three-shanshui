@@ -17,6 +17,10 @@
     font-family: 'b';
     src: url('./assets/font/b.TTF');
 }
+::-webkit-scrollbar {
+    width: 0; /*对垂直流动条有效*/
+    height: 0; /*对水平流动条有效*/
+}
 .slide-in-right {
     animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
@@ -30,7 +34,7 @@
     width: 1920px;
     height: 1080px;
     z-index: -2;
-    opacity: 0.4;
+    opacity: 0.8;
 }
 @keyframes slide-in-right {
     0% {

@@ -45,7 +45,7 @@ export default {
     margin: 0 20px;
     text-align: center;
     font-family: Bahnschrift;
-    background-color: rgba(3,10,9,0.41);
+    background-color: rgba(3,10,9,0.1);
     border-top: 1px solid rgba(91,218,222,0.24);
     border-bottom: 1px solid rgba(91,218,222,0.24);
 }

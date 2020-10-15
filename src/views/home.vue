@@ -84,5 +84,4 @@ export default {
     width: 600px;
     margin-top: 90px;
 }
-
 </style>

@@ -94,18 +94,45 @@
         <div class="popups slide-in-right" v-if="index != -1"
              :style="{left:index == 6 ? '700px':index == 4 ? '300px':'20px'}">
             <div class="titles">{{ projectValue && projectValue.PANAME }}</div>
-            <img class="imgs" src="@/assets/bg.png" alt="">
+            <img class="imgs" v-if="index == 0" src="@/assets/image/1.png" alt="">
+            <img class="imgs" v-if="index == 1" src="@/assets/image/2.png" alt="">
+            <img class="imgs" v-if="index == 2" src="@/assets/image/3.png" alt="">
+            <img class="imgs" v-if="index == 3" src="@/assets/image/4.png" alt="">
+            <img class="imgs" v-if="index == 4" src="@/assets/image/5.png" alt="">
+            <img class="imgs" v-if="index == 5" src="@/assets/image/6.png" alt="">
+            <img class="imgs" v-if="index == 6" src="@/assets/image/7.png" alt="">
             <div class="texts">
-                <div>位置边界</div>
-                <div style="color: #fff;width: 300px">{{ projectValue && projectValue.WZBJ }}</div>
+                <div class="svgIcon">
+                    <svg t="1602727806777" class="icons" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1294"
+                         width="200" height="200">
+                        <path d="M512 0c229.76 0 416 188.416 416 420.864C928 575.808 789.344 776.864 512 1024 234.656 776.864 96 575.808 96 420.864 96 188.416 282.24 0 512 0z m0 224a192 192 0 1 0 0 384 192 192 0 0 0 0-384z m0 64a128 128 0 1 1 0 256 128 128 0 0 1 0-256z"
+                              fill="#79f3f7" p-id="1295"></path>
+                    </svg>
+                    <span style="font-size: 13px"> 位置边界</span>
+                </div>
+                <div style="color: #fff;padding: 10px">{{ projectValue && projectValue.WZBJ }}</div>
             </div>
             <div class="texts">
-                <div>主要问题</div>
-                <div style="color: #fff;width: 300px">{{ projectValue && projectValue.JJCT }}</div>
+                <div class="svgIcon">
+                    <svg t="1602727851557" class="icons" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2148"
+                         width="200" height="200">
+                        <path d="M509.4 63.6c-246.9 0-447.1 200.2-447.1 447.1s200.2 447.1 447.1 447.1c246.9 0 447.1-200.2 447.1-447.1S756.3 63.6 509.4 63.6z m-0.1 717.5c-17.3 0-31.4-14-31.4-31.4s14-31.4 31.4-31.4c17.3 0 31.4 14 31.4 31.4s-14 31.4-31.4 31.4z m43.9-178.6c-7.8 1.9-13.5 8.6-13.5 16.6v43.8c0 16.8-13.6 30.4-30.3 30.4-16.8 0-30.4-13.6-30.4-30.4v-90.7c0-13.9 11.2-25.1 25.1-25.1 67.3 0 126.1-51.8 128.2-119 2.8-89.7-90.9-159-184.9-111.6-40.2 20.3-59.4 63.8-61.1 108.8-0.7 19.3-19.3 33.9-39.7 27.8-13-3.9-21-16.2-21-29.8 0.5-111.3 100.3-199.5 215.2-180.3 76.6 12.8 138 75 150 151.7 15.4 98.7-48.4 185.9-137.6 207.8z"
+                              fill="#79f3f7" p-id="2149"></path>
+                    </svg>
+                    <span style="font-size: 13px">主要问题</span>
+                </div>
+                <div style="color: #fff;padding: 10px">{{ projectValue && projectValue.JJCT }}</div>
             </div>
             <div class="texts">
-                <div>主要任务</div>
-                <div style="color: #fff;width: 300px">{{ projectValue && projectValue.ZYRWCS }}</div>
+                <div class="svgIcon">
+                    <svg t="1602728279581" class="icons" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2558"
+                         width="200" height="200">
+                        <path d="M873.7984 1024H151.025067A67.413333 67.413333 0 0 1 85.3184 955.448889V204.515556a67.413333 67.413333 0 0 1 65.706667-68.551112h32.711111v102.684445a67.413333 67.413333 0 0 0 65.422222 68.551111h525.653333a67.413333 67.413333 0 0 0 65.706667-68.551111V135.964444h32.711111A67.413333 67.413333 0 0 1 938.651733 204.515556v750.933333A66.275556 66.275556 0 0 1 874.367289 1024z m-146.773333-464.497778a49.777778 49.777778 0 0 0-70.257778 0l-175.502222 174.364445L398.207289 652.515556a49.208889 49.208889 0 0 0-69.688889 0 48.071111 48.071111 0 0 0 0 67.982222l117.191111 115.768889a49.208889 49.208889 0 0 0 69.688889 0l210.773333-208.497778a48.355556 48.355556 0 0 0 0-68.266667zM676.393956 238.648889H348.429511A67.413333 67.413333 0 0 1 282.722844 170.666667V135.964444C414.136178 35.84 415.5584 34.133333 449.976178 0h130.275555c32.142222 31.857778 31.288889 35.84 161.564445 135.964444V170.666667a66.56 66.56 0 0 1-64.284445 68.551111zM511.985067 68.266667a68.551111 68.551111 0 1 0 65.422222 71.68v-3.128889A67.413333 67.413333 0 0 0 511.985067 68.266667z"
+                              p-id="2559" fill="#79f3f7"></path>
+                    </svg>
+                    <span style="font-size: 13px">主要任务</span>
+                </div>
+                <div style="color: #fff;padding: 10px">{{ projectValue && projectValue.ZYRWCS }}</div>
             </div>
         </div>
     </div>
@@ -304,6 +331,7 @@ export default {
     left: 40px;
     top: 4px;
     color: #fff;
+    border-radius: 14px;
     background: #2796f9;
 }
 
@@ -496,6 +524,7 @@ export default {
     position: absolute;
     background: rgba(20, 51, 63, 0.6);
     border: solid 1px rgba(121, 243, 247, 0.28);
+    color: #79f3f7;
 }
 
 .popups .titles {
@@ -506,32 +535,27 @@ export default {
 }
 
 .popups .texts {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    font-size: 10px;
     padding: 0 20px;
     line-height: 1.5;
-    position: relative;
 }
 
-.popups .texts:after {
-    position: absolute;
-    bottom: 0;
-    content: '';
-    width: 373px;
-    height: 1px;
-    background: #27f7e6;
-}
-
-.popups .texts:last-child:after {
-    display: none;
-}
 
 .popups .imgs {
     width: 394px;
     height: 206px;
     display: block;
     margin: 20px auto;
+}
+
+.icons {
+    width: 17px;
+    height: 17px;
+    margin-right: 7px;
+}
+
+.svgIcon {
+    display: flex;
+    align-items: center;
 }
 </style>

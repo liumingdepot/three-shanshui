@@ -214,7 +214,7 @@ export default {
             this.scene.add(this.group2);
             this.createcControls()
 
-            this.renderer.domElement.addEventListener('dblclick', event => {
+            this.renderer.domElement.addEventListener('mousedown', event => {
                 event.preventDefault();
                 const raycaster = new THREE.Raycaster();
                 const mouse = new THREE.Vector2();

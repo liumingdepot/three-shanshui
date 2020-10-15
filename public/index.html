@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +7,39 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <style>
-        body {
+        body{
             margin: 0;
             padding: 0;
             background: #091517;
         }
+        .ripple {
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 1);
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            position: absolute;
+            opacity: 1;
+            z-index: 99999999;
+        }
+
+        .rippleEffect {
+            animation: rippleEffect 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .btn-primary .ripple {
+            background: rgba(0, 0, 0, .1);
+        }
+
+        @keyframes rippleEffect {
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
     </style>
 </head>
-<body>
+<body ondragstart="window.event.returnValue=false" oncontextmenu="window.event.returnValue=false" onselectstart="event.returnValue=false">
 <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>
@@ -22,6 +47,23 @@
 <div id="app"></div>
 </body>
 <script>
-
+    document.querySelector('body').addEventListener('click', function(event){
+        event = event || window.event;
+        //  获取鼠标位置
+        var x = event.pageX || document.documentElement.scrollLeft + document.body.scrollLeft + event.clientX;
+        var y = event.pageY || document.documentElement.scrollTop + document.body.scrollTop + event.clientY;
+        console.log(x,y);
+        // 添加.ripple元素
+        var ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        var firstChild = this.firstChild;
+        if (firstChild) {
+            this.insertBefore(ripple, firstChild);
+        } else {
+            this.appendChild(ripple);
+        };
+        ripple.style.cssText = 'width: ' + 50 + 'px;height: ' + 50 + 'px;top: ' + (y - 30) + 'px;left: ' + (x - 30) + 'px';
+        ripple.classList.add('rippleEffect');
+    },true);
 </script>
 </html>
